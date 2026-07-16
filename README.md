@@ -1,12 +1,15 @@
+> Этот сервис: `api-placemarkers-collection` является частью приложения [placemarkers-demo-workstation](https://github.com/Vlad812/placemarkers-demo-workstation).
+
 # API Documentation: Placemarkers Collection
 
 **Стек технологий:**
-- PHP 8
+- PHP 8.5
 - Symfony 8
 - RoadRunner
 - MongoDB
+- Doctrine MongoDB ODM
 
-Сервис сохранения пользовательских подборок меток (коллекций) с критериями поиска и снимками меток.
+Сервис для работы с пользовательскими коллекциями гео-меток. Позволяет сохранять подборки вместе с критериями поиска (координаты, радиус) и снимками меток на момент сохранения, а также просматривать и удалять свои коллекции. Данные хранятся в **MongoDB** через **Doctrine MongoDB ODM** (документы, `DocumentManager`, fetcher для чтения списка коллекций).
 
 **Авторизация (общее):** Bearer Token (JWT). Пользователь видит и управляет только своими коллекциями.
 
@@ -60,11 +63,13 @@
 
 #### Пример запроса
 
-```json
+```http
 POST /collections HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
 
+```json
 {
   "name": "Подборка",
   "search_criteria": {
