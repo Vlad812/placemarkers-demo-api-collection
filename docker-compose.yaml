@@ -1,3 +1,11 @@
+x-app-environment: &app-environment
+  APP_ENV: dev
+  APP_DEBUG: 1
+  APP_SECRET: 75914121030ad559bbae482519258ce1
+  APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
+  MONGODB_URL: mongodb://root:root@cs-mongo:27017
+  MONGODB_DB: placemarkers
+
 services:
 
   api-placemarkers-collection:
@@ -9,14 +17,9 @@ services:
     volumes:
       - ./app:/var/www/html
     environment:
-      APP_ENV: dev
-      APP_DEBUG: 1
-      APP_SECRET: 75914121030ad559bbae482519258ce1
-      APP_RUNTIME: Baldinof\RoadRunnerBundle\Runtime\Runtime
+      <<: *app-environment
       VAR_DUMPER_FORMAT: 'server'
       VAR_DUMPER_SERVER: 'buggregator:9912'
-      MONGODB_URL: mongodb://root:root@cs-mongo:27017
-      MONGODB_DB: placemarkers
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=place_markers_net"
@@ -41,11 +44,7 @@ services:
     volumes:
       - ./app:/var/www/html
     environment:
-      APP_ENV: dev
-      APP_DEBUG: 1
-      APP_SECRET: 75914121030ad559bbae482519258ce1
-      MONGODB_URL: mongodb://root:root@cs-mongo:27017
-      MONGODB_DB: placemarkers
+      <<: *app-environment
     networks:
       - place_markers_net
 
